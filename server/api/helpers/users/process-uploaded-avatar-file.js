@@ -48,7 +48,7 @@ module.exports = {
       await fileManager.save(
         `${dirPathSegment}/original.${extension}`,
         originalBuffer,
-        inputs.file.type,
+        { contentType: inputs.file.type, isPublic: true },
       );
 
       const square100Buffer = await image
@@ -66,7 +66,7 @@ module.exports = {
       await fileManager.save(
         `${dirPathSegment}/square-100.${extension}`,
         square100Buffer,
-        inputs.file.type,
+        { contentType: inputs.file.type, isPublic: true },
       );
     } catch (error1) {
       console.warn(error1.stack); // eslint-disable-line no-console

@@ -22,7 +22,7 @@ module.exports = {
     const filePath = await fileManager.move(
       inputs.file.fd,
       `${dirPathSegment}/${filename}`,
-      inputs.file.type,
+      { contentType: inputs.file.type },
     );
 
     let image = sharp(filePath || inputs.file.fd, {
@@ -66,7 +66,7 @@ module.exports = {
         await fileManager.save(
           `${dirPathSegment}/thumbnails/cover-256.${thumbnailsExtension}`,
           resizeBuffer,
-          inputs.file.type,
+          { contentType: inputs.file.type },
         );
 
         fileData.image = {

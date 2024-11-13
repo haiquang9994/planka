@@ -48,7 +48,7 @@ module.exports = {
       await fileManager.save(
         `${dirPathSegment}/original.${extension}`,
         originalBuffer,
-        inputs.file.type,
+        { contentType: inputs.file.type, isPublic: true },
       );
 
       const cover336Buffer = await image
@@ -66,7 +66,7 @@ module.exports = {
       await fileManager.save(
         `${dirPathSegment}/cover-336.${extension}`,
         cover336Buffer,
-        inputs.file.type,
+        { contentType: inputs.file.type, isPublic: true },
       );
     } catch (error1) {
       console.warn(error1.stack); // eslint-disable-line no-console

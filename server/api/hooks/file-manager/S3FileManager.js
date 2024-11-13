@@ -11,12 +11,13 @@ class S3FileManager {
     this.client = client;
   }
 
-  async move(sourceFilePath, filePathSegment, contentType) {
+  async move(sourceFilePath, filePathSegment, options = {}) {
     const command = new PutObjectCommand({
       Bucket: sails.config.custom.s3Bucket,
       Key: filePathSegment,
       Body: fs.createReadStream(sourceFilePath),
-      ContentType: contentType,
+      ContentType: options.contentType || undefined,
+      ACL: options.isPublic ? 'public-read' : undefined,
     });
 
     await this.client.send(command);
@@ -24,12 +25,13 @@ class S3FileManager {
     return null;
   }
 
-  async save(filePathSegment, buffer, contentType) {
+  async save(filePathSegment, buffer, options = {}) {
     const command = new PutObjectCommand({
       Bucket: sails.config.custom.s3Bucket,
       Key: filePathSegment,
       Body: buffer,
-      ContentType: contentType,
+      ContentType: options.contentType || undefined,
+      ACL: options.isPublic ? 'public-read' : undefined,
     });
 
     await this.client.send(command);
